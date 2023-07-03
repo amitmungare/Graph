@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BFS {
+public class Test {
 
 
 
@@ -45,24 +45,6 @@ public class BFS {
         }
     }
 
-    public static void bfs(ArrayList<Edge> graph[], boolean vis[], int sp){
-        Queue<Integer> q = new LinkedList<>();
-        q.add(sp);
-
-        while (!q.isEmpty()){
-            int curr = q.remove();
-            if(vis[curr]==false){
-                System.out.print(curr+" ");
-                vis[curr]=true;
-                for (int i=0; i<graph[curr].size(); i++){
-                    Edge e = graph[curr].get(i);
-                    q.add(e.dest);
-                }
-            }
-        }
-
-    }
-
     public static void main(String[] args) {
 
         int v=7;
@@ -70,15 +52,30 @@ public class BFS {
 
         createGraph(graph);
 
-        boolean vis[] = new boolean[v];
-        for (int i=0; i<v; i++){
-            if(vis[i]==false){
-                bfs(graph, vis, i);
+
+        boolean check[] = new boolean[v];
+
+        for(int i=0; i< check.length; i++){
+            if(check[i]==false){
+                bfs(graph, v, check, i);
             }
         }
+    }
 
+    private static void bfs(ArrayList<Edge>[] graph, int size, boolean check[], int st) {
+        Queue<Integer> q =new LinkedList<>();
+        q.add(st);
 
-//        printGraph(graph);
+        while(!q.isEmpty()){
+            int curr = q.remove();
+            if(check[curr]==false){
+                System.out.print(curr+" ");
+                check[curr]=true;
+                for(int i=0; i<graph[curr].size(); i++){
+                    q.add(graph[curr].get(i).dest);
+                }
+            }
+        }
 
     }
 
