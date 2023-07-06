@@ -1,10 +1,6 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
-public class Test {
-
-
+public class AllPaths {
 
     public static void createGraph(ArrayList<Edge> graph[]){
         for (int i=0; i< graph.length; i++){
@@ -34,16 +30,6 @@ public class Test {
         graph[6].add(new Edge(6,5));
     }
 
-    public static void printGraph(ArrayList<Edge> graph[]){
-        for (int g=0; g< graph.length; g++){
-            System.out.print(g+" : ");
-            for(int i=0; i<graph[g].size(); i++){
-                Edge e = graph[g].get(i);
-                System.out.print(e.dest+" ");
-            }
-            System.out.println();
-        }
-    }
 
     public static void main(String[] args) {
 
@@ -54,27 +40,25 @@ public class Test {
 
         boolean check[] = new boolean[v];
 
-        allPaths(graph, check, "0", 0, 5);
+        allPathsToTar(graph, check, "0", 0, 5);
 
     }
 
-    private static void allPaths(ArrayList<Edge>[] graph, boolean[] check, String path, int curr, int tar) {
+    private static void allPathsToTar(ArrayList<Edge>[] graph, boolean[] check, String path, int curr, int tar) {
 
         if(curr==tar){
             System.out.println(path);
             return;
         }
 
-        for(int i=0; i<graph[curr].size(); i++){
+        for (int i=0; i<graph[curr].size(); i++){
             Edge e = graph[curr].get(i);
             if(check[e.dest]==false){
                 check[curr]=true;
-                allPaths(graph, check, path+" "+e.dest, e.dest, tar);
+                allPathsToTar(graph, check, path+" "+e.dest, e.dest, tar);
                 check[curr]=false;
             }
         }
 
     }
-
-
 }
