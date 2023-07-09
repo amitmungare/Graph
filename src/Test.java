@@ -48,32 +48,33 @@ public class Test {
     public static void main(String[] args) {
 
         int v=7;
-        ArrayList<Edge> graph[] = new ArrayList[v];
+        ArrayList<Edge>[] graph = new ArrayList[v];
 
         createGraph(graph);
 
-        boolean check[] = new boolean[v];
+        boolean[] check = new boolean[v];
 
-        allPaths(graph, check, "0", 0, 5);
+        for(int i=0; i<v; i++){
+            if(check[i]==false)bfs1(graph, check,i);
+        }
 
     }
 
-    private static void allPaths(ArrayList<Edge>[] graph, boolean[] check, String path, int curr, int tar) {
+    private static void bfs1(ArrayList<Edge>[] graph, boolean[] check, int ii) {
+        Queue<Integer> q = new LinkedList<>();
+        q.add(ii);
 
-        if(curr==tar){
-            System.out.println(path);
-            return;
-        }
-
-        for(int i=0; i<graph[curr].size(); i++){
-            Edge e = graph[curr].get(i);
-            if(check[e.dest]==false){
+        while (!q.isEmpty()){
+            int curr = q.remove();
+            if(check[curr]==false){
+                System.out.print(curr+" ");
                 check[curr]=true;
-                allPaths(graph, check, path+" "+e.dest, e.dest, tar);
-                check[curr]=false;
+                for(int i=0; i<graph[curr].size(); i++){
+                    Edge e = graph[curr].get(i);
+                    q.add(e.dest);
+                }
             }
         }
-
     }
 
 

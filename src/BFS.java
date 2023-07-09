@@ -4,8 +4,6 @@ import java.util.Queue;
 
 public class BFS {
 
-
-
     public static void createGraph(ArrayList<Edge> graph[]){
         for (int i=0; i< graph.length; i++){
             graph[i] = new ArrayList<>();
@@ -51,7 +49,7 @@ public class BFS {
 
         while (!q.isEmpty()){
             int curr = q.remove();
-            if(vis[curr]==false){
+            if(!vis[curr]){
                 System.out.print(curr+" ");
                 vis[curr]=true;
                 for (int i=0; i<graph[curr].size(); i++){
