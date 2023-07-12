@@ -15,7 +15,7 @@ public class BellmanFordAlgo {
 
         graph[3].add(new Edge(3,4,4));
 
-        graph[4].add(new Edge(4,1, -10));
+        graph[4].add(new Edge(4,1, -1));
     }
 
     public static void main(String[] args) {
