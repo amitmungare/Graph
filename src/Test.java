@@ -52,28 +52,57 @@ public class Test {
 
         createGraph(graph);
 
-        boolean[] check = new boolean[v];
+//        printGraph(graph);
 
-        for(int i=0; i<v; i++){
-            if(check[i]==false)bfs1(graph, check,i);
+        boolean[] vis = new boolean[v];
+
+//        for(int i=0; i<v; i++){
+//            allPaths(graph, vis, 0, "0",5);
+//        }
+
+    }
+
+    private static void allPaths(ArrayList<Edge>[] graph, boolean[] vis, int curr, String path, int trg) {
+
+        if(curr==trg){
+            System.out.println(path);
+            return;
+        }
+        for(int i=0; i<graph[curr].size(); i++){
+            vis[curr]=true;
+            Edge e = graph[curr].get(i);
+            if(!vis[e.dest]) allPaths(graph, vis, e.dest, path+" "+e.dest, trg);
+            vis[curr]=false;
         }
 
     }
 
-    private static void bfs1(ArrayList<Edge>[] graph, boolean[] check, int ii) {
+    private static void bfs(ArrayList<Edge>[] graph, boolean[] vis, int ii) {
+
         Queue<Integer> q = new LinkedList<>();
         q.add(ii);
 
-        while (!q.isEmpty()){
+        while(!q.isEmpty()){
             int curr = q.remove();
-            if(check[curr]==false){
+            if(!vis[curr]){
                 System.out.print(curr+" ");
-                check[curr]=true;
+                vis[curr]=true;
                 for(int i=0; i<graph[curr].size(); i++){
                     Edge e = graph[curr].get(i);
                     q.add(e.dest);
                 }
             }
+        }
+
+    }
+
+
+    private static void dfs(ArrayList<Edge>[] graph, boolean[] vis, int curr) {
+        System.out.print(curr+" ");
+        vis[curr]=true;
+        for(int i=0; i<graph[curr].size(); i++){
+            Edge e = graph[curr].get(i);
+            if(!vis[e.dest]) dfs(graph, vis, e.dest);
         }
     }
 
